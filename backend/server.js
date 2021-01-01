@@ -1,8 +1,9 @@
-import path from 'path'
 import express from 'express'
 import dotenv from 'dotenv'
+import path from 'path'
 import morgan from 'morgan'
 import connectDb from './config/db.js'
+import cors from 'cors'
 import prooductRoutes from './routes/productRouter.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
@@ -10,7 +11,7 @@ import uploadRoutes from './routes/uploadRoutes.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import bodyParser from 'body-parser'
 
-const bodyparser = bodyParser
+const bodyparser = bodyParser 
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }))
+app.use(cors())
 
 app.use('/api/products', prooductRoutes)
 app.use('/api/users', userRoutes)
